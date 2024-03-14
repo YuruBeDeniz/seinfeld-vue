@@ -1,5 +1,10 @@
 <script>
+import CharacterStatistics from './CharacterStatistics.vue'
+
 export default {
+  components: {
+    CharacterStatistics
+  },
   data: () => ({
     newCharacter: {
       name: '',
@@ -14,28 +19,6 @@ export default {
     ],
     favoriteList: []
   }),
-  computed: {
-    characteristicStatistics() {
-      const allCharacteristics = this.characterList.reduce((acc, character) => {
-        return [...new Set(acc.concat(character.characteristics))]
-      }, [])
-
-      const statistics = allCharacteristics.reduce((acc, characteristic) => {
-        acc[characteristic] = 0
-        return acc
-      }, {})
-
-      this.characterList.forEach((character) => {
-        allCharacteristics.forEach((characterType) => {
-          if (character.characteristics.includes(characterType)) {
-            statistics[characterType]++
-          }
-        })
-      })
-
-      return statistics
-    }
-  },
   methods: {
     addNewCharacter() {
       this.characterList.push(this.newCharacter)
@@ -51,13 +34,8 @@ export default {
 </script>
 
 <template>
-  <h2>Statistics</h2>
-  <ul>
-    <li v-for="(stat, key) in characteristicStatistics" :key="`char-${stat}-${key}`">
-      {{ key }}: {{ stat }}
-    </li>
-  </ul>
-
+  <!-- v-bind to make it dynamic -->
+  <CharacterStatistics v-bind:characters="characterList" />
   <h1>Seinfeld characters:</h1>
   <p v-if="characterList.length === 0">There are no characters..</p>
   <ul v-else>
