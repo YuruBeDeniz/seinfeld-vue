@@ -2,12 +2,14 @@
 import CharacterStatistics from './CharacterStatistics.vue'
 import CharacterCard from './CharacterCard.vue'
 import BaseLayout from './BaseLayout.vue'
+import FetchPokemon from './FetchPokemon.vue'
 
 export default {
   components: {
     CharacterStatistics,
     CharacterCard,
-    BaseLayout
+    BaseLayout,
+    FetchPokemon
   },
   data: () => ({
     newCharacter: {
@@ -39,6 +41,7 @@ export default {
 </script>
 
 <template>
+  <FetchPokemon />
   <BaseLayout>
     <template v-slot:two>
       <h2>Add New Character</h2>
