@@ -1,9 +1,11 @@
 <script>
 import CharacterStatistics from './CharacterStatistics.vue'
+import CharacterCard from './CharacterCard.vue'
 
 export default {
   components: {
-    CharacterStatistics
+    CharacterStatistics,
+    CharacterCard
   },
   data: () => ({
     newCharacter: {
@@ -24,9 +26,10 @@ export default {
       this.characterList.push(this.newCharacter)
       this.newCharacter = { name: '' }
     },
-    favoriteCharacter(character) {
-      if (!this.favoriteList.find((fav) => fav.name === character.name)) {
-        this.favoriteList.push(character)
+    addFavoriteCharacter(payload) {
+      console.log(payload)
+      if (!this.favoriteList.find((fav) => fav.name === payload.name)) {
+        this.favoriteList.push(payload)
       }
     }
   }
@@ -40,8 +43,7 @@ export default {
   <p v-if="characterList.length === 0">There are no characters..</p>
   <ul v-else>
     <li v-for="(character, index) in characterList" :key="`even-character-${index}`">
-      <p>{{ character.name }}</p>
-      <button @click="favoriteCharacter(character)">Add to Favorite</button>
+      <CharacterCard :character="character" @favorite="addFavoriteCharacter" />
     </li>
   </ul>
   <h2>Favorite Characters</h2>
@@ -59,3 +61,4 @@ export default {
   <label for="character-name">Name</label>
   <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter" />
 </template>
+./CharacterCard.vue
