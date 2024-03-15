@@ -1,11 +1,13 @@
 <script>
 import CharacterStatistics from './CharacterStatistics.vue'
 import CharacterCard from './CharacterCard.vue'
+import BaseLayout from './BaseLayout.vue'
 
 export default {
   components: {
     CharacterStatistics,
-    CharacterCard
+    CharacterCard,
+    BaseLayout
   },
   data: () => ({
     newCharacter: {
@@ -37,6 +39,17 @@ export default {
 </script>
 
 <template>
+  <BaseLayout>
+    <template v-slot:two>
+      <h2>Add New Character</h2>
+      <pre>
+      {{ newCharacter }}
+    </pre
+      >
+      <label for="character-name">Name</label>
+      <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter" />
+    </template>
+  </BaseLayout>
   <!-- v-bind to make it dynamic -->
   <CharacterStatistics v-bind:characters="characterList" />
   <h1>Seinfeld characters:</h1>
@@ -53,12 +66,4 @@ export default {
     </li>
   </ul>
   <p v-else>No favorite characters yet</p>
-
-  <pre>
-      {{ newCharacter }}
-    </pre
-  >
-  <label for="character-name">Name</label>
-  <input type="text" v-model="newCharacter.name" @keyup.enter="addNewCharacter" />
 </template>
-./CharacterCard.vue
